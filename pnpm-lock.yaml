@@ -9,8 +9,8 @@ dependencies:
     specifier: ^11.0.1
     version: 11.0.16(file-type@20.4.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
   '@nestjs/config':
-    specifier: github:nestjs/config
-    version: github.com/nestjs/config/a074b6b6bb758331147f55e4f0b7146569a92ee2(@nestjs/common@11.0.16)(rxjs@7.8.2)
+    specifier: ^4.0.2
+    version: 4.0.2(@nestjs/common@11.0.16)(rxjs@7.8.2)
   '@nestjs/core':
     specifier: ^11.0.1
     version: 11.0.16(@nestjs/common@11.0.16)(@nestjs/platform-express@11.0.16)(reflect-metadata@0.2.2)(rxjs@7.8.2)
@@ -1346,6 +1346,19 @@ packages:
       rxjs: 7.8.2
       tslib: 2.8.1
       uid: 2.0.2
+
+  /@nestjs/config@4.0.2(@nestjs/common@11.0.16)(rxjs@7.8.2):
+    resolution: {integrity: sha512-McMW6EXtpc8+CwTUwFdg6h7dYcBUpH5iUILCclAsa+MbCEvC9ZKu4dCHRlJqALuhjLw97pbQu62l4+wRwGeZqA==}
+    peerDependencies:
+      '@nestjs/common': ^10.0.0 || ^11.0.0
+      rxjs: ^7.1.0
+    dependencies:
+      '@nestjs/common': 11.0.16(file-type@20.4.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
+      dotenv: 16.4.7
+      dotenv-expand: 12.0.1
+      lodash: 4.17.21
+      rxjs: 7.8.2
+    dev: false
 
   /@nestjs/core@11.0.16(@nestjs/common@11.0.16)(@nestjs/platform-express@11.0.16)(reflect-metadata@0.2.2)(rxjs@7.8.2):
     resolution: {integrity: sha512-2YuPotgypux2RFYu2Toa5NUbPdp2bZE7CC10OgUpjJMZ3ZBfoWe0jcGqS5yPdoV+u8v+/IvqShy1Mz10HJvexA==}
@@ -6169,19 +6182,3 @@ packages:
     resolution: {integrity: sha512-cYVsTjKl8b+FrnidjibDWskAv7UKOfcwaVZdp/it9n1s9fU3IkgDbhdIRKCW4JDsAlECJY0ytoVPT3sK6kideA==}
     engines: {node: '>=18'}
     dev: true
-
-  github.com/nestjs/config/a074b6b6bb758331147f55e4f0b7146569a92ee2(@nestjs/common@11.0.16)(rxjs@7.8.2):
-    resolution: {tarball: https://codeload.github.com/nestjs/config/tar.gz/a074b6b6bb758331147f55e4f0b7146569a92ee2}
-    id: github.com/nestjs/config/a074b6b6bb758331147f55e4f0b7146569a92ee2
-    name: '@nestjs/config'
-    version: 4.0.2
-    peerDependencies:
-      '@nestjs/common': ^10.0.0 || ^11.0.0
-      rxjs: ^7.1.0
-    dependencies:
-      '@nestjs/common': 11.0.16(file-type@20.4.1)(reflect-metadata@0.2.2)(rxjs@7.8.2)
-      dotenv: 16.4.7
-      dotenv-expand: 12.0.1
-      lodash: 4.17.21
-      rxjs: 7.8.2
-    dev: false
