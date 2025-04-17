@@ -4,6 +4,6 @@
    `docker-compose up -d`
 
 2. Enter the container:
-   `docker exec -it app bash`
+   `docker-compose exec app bash`
 
 After this you can run the cli commands.
