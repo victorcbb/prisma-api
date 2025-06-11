@@ -65,7 +65,42 @@ export class PostsRepository {
   }
 
   async update(id: number, updatePostDto: UpdatePostDto): Promise<PostEntity> {
-    return this.prisma.post.update({ where: { id }, data: updatePostDto });
+    const { authorEmail } = updatePostDto;
+
+    if (!authorEmail) {
+      return this.prisma.post.update({
+        where: { id },
+        data: updatePostDto,
+        include: { author: { select: { name: true } } },
+      });
+    }
+
+    delete updatePostDto.authorEmail;
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: authorEmail,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundError('Author not found.');
+    }
+
+    const data: Prisma.PostUpdateInput = {
+      ...updatePostDto,
+      author: {
+        connect: {
+          email: authorEmail,
+        },
+      },
+    };
+
+    return this.prisma.post.update({
+      where: { id },
+      data,
+      include: { author: { select: { name: true } } },
+    });
   }
 
   async remove(id: number): Promise<PostEntity> {
