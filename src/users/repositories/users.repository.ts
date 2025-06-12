@@ -3,6 +3,7 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { UserEntity } from '../entities/user.entity';
+import { NotFoundError } from 'src/common/errors/types/NotFoundError';
 
 @Injectable()
 export class UsersRepository {
@@ -13,15 +14,54 @@ export class UsersRepository {
   }
 
   async findAll(): Promise<UserEntity[]> {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      include: {
+        posts: {
+          select: {
+            title: true,
+            createdAt: true,
+          },
+        },
+      },
+    });
   }
 
   async findOne(id: number): Promise<UserEntity | null> {
-    return this.prisma.user.findUnique({ where: { id } });
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        posts: {
+          select: {
+            title: true,
+            createdAt: true,
+          },
+        },
+      },
+    });
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<UserEntity> {
-    return this.prisma.user.update({ where: { id }, data: updateUserDto });
+    const existingUser = await this.findOne(id);
+    if (!existingUser) {
+      throw new NotFoundError('User not found');
+    }
+
+    return this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: updateUserDto,
+      include: {
+        posts: {
+          select: {
+            title: true,
+            createdAt: true,
+          },
+        },
+      },
+    });
   }
 
   async remove(id: number): Promise<UserEntity> {
